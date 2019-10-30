@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <link rel="stylesheet" href="css/normalize.css">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/angular.min.js"></script>
+  <script src="js/jquery-2.1.4.min.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/controllers/MainController.js"></script>
+</head>
+<body ng-app="startTrackApp" ng-controller="MainController">
+
+  <header class="page-header">
+    <div class="wrapper">
+       <a class="logo">StartTrack</a>
+    </div>
+  </header>
+
+  <div class="projects-counter">
+      <span class="projects-quantity">{{projectList.length}} проектов</span>
+  </div>
+
+  <main class="page-main">
+
+      <section class="projects-list">
+        <!-- <div class="project" ng-repeat="project in projects | filter : countryFilter | filter : roundFilter | filter : segmentFilter | filter : jurisdictionFilter | filter : businessTypeFilter"> -->
+        <div class="project" ng-repeat="project in projectList = (projects | filter : countryFilter | filter : roundFilter | filter : segmentFilter | filter : jurisdictionFilter | filter : businessTypeFilter)">
+          <a href="#"><img class="project__image" ng-src="{{ project.image }}"
+          width="236px" height="160px"></a>
+          <a href="#" class="project__title">{{ project.title }}</a>
+          <p class="project__description">{{ project.description }}</p>
+          <a href="#" class="project__invest-button">ИНВЕСТИРОВАТЬ</a>
+        </div>
+      </section>
+
+      <section class="projects-filters">
+        <form  action="#" method="post">
+
+          <fieldset class="projects-filters__filter-section">
+            <legend class="filter-section__filter-title">Сортировка</legend>
+          </fieldset>
+
+          <fieldset class="projects-filters__filter-section">
+            <legend class="filter-section__filter-title">География присутствия</legend>
+            <input type="checkbox" class="filter-section__checkbox" name="country" value="Россия" id="country--russia" ng-click="includeCountry('Россия')">
+            <label for="country--russia">Россия</label><br>
+            <input type="checkbox" class="filter-section__checkbox" name="country" value="Другие страны" id="country--other" ng-click="includeCountry('Другие страны')">
+            <label for="country--other">Другие страны</label><br>
+          </fieldset>
+
+          <fieldset class="projects-filters__filter-section">
+            <legend class="filter-section__filter-title">Привлекаемый раунд</legend>
+            <input type="checkbox" class="filter-section__checkbox" name="round" value="Seed" id="round--seed" ng-click="includeRound('Seed')">
+            <label for="round--seed">Seed</label><br>
+            <input type="checkbox" class="filter-section__checkbox" name="round" value="Preseed" id="round--preseed" ng-click="includeRound('Preseed')">
+            <label for="round--preseed">Preseed</label><br>
+            <input type="checkbox" class="filter-section__checkbox" name="round" value="Round A" id="round--a" ng-click="includeRound('Round A')">
+            <label for="round--a">Round A</label><br>
+          </fieldset>
+
+          <fieldset class="projects-filters__filter-section">
+            <legend class="filter-section__filter-title">Сегмент</legend>
+            <input type="checkbox" class="filter-section__checkbox" name="segment" value="Информационные технологии" id="segment--it" ng-click="includeSegment('Информационные технологии')">
+            <label for="segment--it">Информационные технологии</label><br>
+            <input type="checkbox" class="filter-section__checkbox" name="segment" value="Мобильные приложения" id="segment--mobile"  ng-click="includeSegment('Мобильные приложения')">
+            <label for="segment--mobile">Мобильные приложения</label><br>
+            <input type="checkbox" class="filter-section__checkbox" name="segment" value="Электронная коммерция" id="segment--e-commerce"  ng-click="includeSegment('Электронная коммерция')">
+            <label for="segment--e-commerce">Электронная коммерция</label><br>
+            <!-- <input type="checkbox" class="filter-section__checkbox" name="segment" value="Marketplace">
+            <label>Marketplace</label><br>
+            <input type="checkbox" class="filter-section__checkbox" name="segment" value="Образование">
+            <label>Образование</label><br>
+            <input type="checkbox" class="filter-section__checkbox" name="segment" value="Развлечения">
+            <label>Развлечения</label><br>
+            <input type="checkbox" class="filter-section__checkbox" name="segment" value="Cloud/SaaS">
+            <label>Cloud/SaaS</label><br>
+            <input type="checkbox" class="filter-section__checkbox" name="segment" value="Реклама и PR">
+            <label>Реклама и PR</label><br>
+            <input type="checkbox" class="filter-section__checkbox" name="segment" value="Здоровье">
+            <label>Здоровье</label><br>
+            <input type="checkbox" class="filter-section__checkbox" name="segment" value="Другое">
+            <label>Другое</label><br>
+            <input type="checkbox" class="filter-section__checkbox" name="segment" value="Туризм и путешествия">
+            <label>Туризм и путешествия</label><br>
+            <input type="checkbox" class="filter-section__checkbox" name="segment" value="Промышленные проекты">
+            <label>Промышленные проекты</label><br>
+            <input type="checkbox" class="filter-section__checkbox" name="segment" value="Социальные сервисы">
+            <label>Социальные сервисы</label><br>
+            <input type="checkbox" class="filter-section__checkbox" name="segment" value="Медиа">
+            <label>Медиа</label><br>
+            <input type="checkbox" class="filter-section__checkbox" name="segment" value="Недвижимость">
+            <label>Недвижимость</label><br>
+            <input type="checkbox" class="filter-section__checkbox" name="segment" value="Авто">
+            <label>Авто</label><br>
+            <input type="checkbox" class="filter-section__checkbox" name="segment" value="Рестораны">
+            <label>Рестораны</label><br>
+            <input type="checkbox" class="filter-section__checkbox" name="segment" value="Игры">
+            <label>Игры</label><br>
+            <input type="checkbox" class="filter-section__checkbox" name="segment" value="Логистика">
+            <label>Логистика</label><br>
+            <input type="checkbox" class="filter-section__checkbox" name="segment" value="Новые материалы">
+            <label>Новые материалы</label><br>
+            <input type="checkbox" class="filter-section__checkbox" name="segment" value="Спорт">
+            <label>Спорт</label><br>
+            <input type="checkbox" class="filter-section__checkbox" name="segment" value="Big Data">
+            <label>Big Data</label><br>
+            <input type="checkbox" class="filter-section__checkbox" name="segment" value="Hardware">
+            <label>Hardware</label><br>
+            <input type="checkbox" class="filter-section__checkbox" name="segment" value="Финансовые технологии">
+            <label>Финансовые технологии</label><br> -->
+          </fieldset>
+
+          <fieldset class="projects-filters__filter-section">
+            <legend class="filter-section__filter-title">Юрисдикция</legend>
+            <input type="checkbox" class="filter-section__checkbox" name="jurisdiction" value="Российское право" id="jurisdiction--russian" ng-click="includeJurisdiction('Российское право')">
+            <label for="jurisdiction--russian">Российское право</label><br>
+            <input type="checkbox" class="filter-section__checkbox" name="jurisdiction" value="Иное" id="jurisdiction--other" ng-click="includeJurisdiction('Иное')">
+            <label for="jurisdiction--other">Иное</label><br>
+            <input type="checkbox" class="filter-section__checkbox" name="jurisdiction" value="Английское право" id="jurisdiction--english" ng-click="includeJurisdiction('Английское право')">
+            <label for="jurisdiction--english">Английское право</label><br>
+          </fieldset>
+
+          <fieldset class="projects-filters__filter-section">
+            <legend class="filter-section__filter-title">Типы бизнеса</legend>
+            <input type="checkbox" class="filter-section__checkbox" name="businessType" value="B2C" id="businessType--B2C" ng-click="includeBusinessType('B2C')">
+            <label for="businessType--B2C">B2C</label><br>
+            <input type="checkbox" class="filter-section__checkbox" name="businessType" value="B2B" id="businessType--B2B" ng-click="includeBusinessType('B2B')">
+            <label for="businessType--B2B">B2B</label><br>
+            <input type="checkbox" class="filter-section__checkbox" name="businessType" value="B2G" id="businessType--B2G" ng-click="includeBusinessType('B2G')">
+            <label for="businessType--B2G">B2G</label><br>
+          </fieldset>
+
+        </form>
+      </section>
+
+  </main>
+
+  <footer class="page-footer">
+    <div class="wrapper">
+      Вся информация, представленная на данной площадке, носит исключительно ознакомительный характер; она не является предложением или советом по покупке либо продаже долей компаний и не должна рассматриваться как рекомендация к подобного рода действиям. Принимая во внимание вышесказанное, не следует полагаться исключительно на представленные материалы в ущерб проведению независимого анализа. ООО «СтартТрек», его аффилированные лица и сотрудники не несут ответственности за использование данной информации, за прямой или косвенный ущерб, наступивший вследствие использования данной информации, а также за ее достоверность.
+    </div>
+  </footer>
+
+</body>
+</html>
